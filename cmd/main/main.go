@@ -17,6 +17,8 @@ import (
 )
 
 func main() {
+	gin.SetMode(gin.ReleaseMode)
+
 	cfg := config.GetConfig()
 
 	logger := logging.GetLogger()
@@ -43,7 +45,6 @@ func start(router *gin.Engine, cfg *config.Config, pGPool *pgxpool.Pool) {
 	if listenErr != nil {
 		logger.Fatal(listenErr)
 	}
-
 
 	router.Use(cors.New(cors.Config{
 		AllowOrigins:     []string{"*"},
