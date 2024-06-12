@@ -1,4 +1,12 @@
 basePath: /
+definitions:
+  adminlogin.Login:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    type: object
 externalDocs:
   description: OpenAPI
   url: https://swagger.io/resources/open-api/
@@ -15,7 +23,27 @@ info:
   termsOfService: http://swagger.io/terms/
   title: Swagger Example API
   version: "1.0"
-paths: {}
+paths:
+  /api/v1/admin/login:
+    post:
+      consumes:
+      - application/json
+      description: Create a new account
+      parameters:
+      - description: Create news
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/adminlogin.Login'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Create account
+      tags:
+      - accounts
 securityDefinitions:
   BasicAuth:
     type: basic

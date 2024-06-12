@@ -1,12 +1,17 @@
 package handlermanager
 
 import (
+	adminlogin "test/internal/admin/admin"
+	admindb "test/internal/admin/admin/db"
 	"test/pkg/client/postgresql"
 	"test/pkg/logging"
 
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
+)
+const (
+	adminURL  = "/api/v1/admin"
 )
 
 // @title           Swagger Example API
@@ -31,7 +36,11 @@ import (
 func Manager(client postgresql.Client, logger *logging.Logger) *gin.Engine {
 	r := gin.Default()
 
-	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	r.GET("/api-docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
+	AdminRouterManager := r.Group(adminURL)
+	AdminRouterRepository := admindb.NewRepository(client, logger)
+	AdminRouterHandler := adminlogin.NewHandler(AdminRouterRepository, logger)
+	AdminRouterHandler.Register(AdminRouterManager)
 	return r
 }
