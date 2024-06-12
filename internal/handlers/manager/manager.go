@@ -42,5 +42,6 @@ func Manager(client postgresql.Client, logger *logging.Logger) *gin.Engine {
 	AdminRouterRepository := admindb.NewRepository(client, logger)
 	AdminRouterHandler := adminlogin.NewHandler(AdminRouterRepository, logger)
 	AdminRouterHandler.Register(AdminRouterManager)
+	
 	return r
 }
