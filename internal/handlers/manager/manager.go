@@ -1,6 +1,7 @@
 package handlermanager
 
 import (
+	"test/docs"
 	adminlogin "test/internal/admin/admin"
 	admindb "test/internal/admin/admin/db"
 	"test/pkg/client/postgresql"
@@ -11,7 +12,7 @@ import (
 	ginSwagger "github.com/swaggo/gin-swagger"
 )
 const (
-	adminURL  = "/api/v1/admin"
+	adminURL  = "api/v1/admin"
 )
 
 // @title           Swagger Example API
@@ -34,14 +35,24 @@ const (
 // @externalDocs.description  OpenAPI
 // @externalDocs.url          https://swagger.io/resources/open-api/
 func Manager(client postgresql.Client, logger *logging.Logger) *gin.Engine {
-	r := gin.Default()
-
-	r.GET("/api-docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
-
-	AdminRouterManager := r.Group(adminURL)
+	router := gin.Default()
+	
+	AdminRouterManager := router.Group(adminURL)
 	AdminRouterRepository := admindb.NewRepository(client, logger)
 	AdminRouterHandler := adminlogin.NewHandler(AdminRouterRepository, logger)
 	AdminRouterHandler.Register(AdminRouterManager)
 	
-	return r
+
+	
+	//swagger information
+	docs.SwaggerInfo.Title = "TEST API DOCUMENTATION"
+	docs.SwaggerInfo.Description = "TEST API DOCUMENTATION"
+	docs.SwaggerInfo.Version = "1.0"
+	docs.SwaggerInfo.Host = "localhost:3000"
+	docs.SwaggerInfo.BasePath = "/"
+	docs.SwaggerInfo.Schemes = []string{"http", "https"}
+
+	router.GET("/api-docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+
+	return router
 }

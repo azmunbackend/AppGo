@@ -26,7 +26,7 @@ const docTemplate = `{
     "paths": {
         "/api/v1/admin/login": {
             "post": {
-                "description": "Create a new account",
+                "description": "Create a new login",
                 "consumes": [
                     "application/json"
                 ],
@@ -34,12 +34,12 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "accounts"
+                    "Login"
                 ],
-                "summary": "Create account",
+                "summary": "Create login",
                 "parameters": [
                     {
-                        "description": "Create news",
+                        "description": "Login",
                         "name": "request",
                         "in": "body",
                         "required": true,

@@ -2,15 +2,12 @@ package config
 
 import (
 	"fmt"
-	"log"
-	"os"
 	"sync"
 
 	"github.com/ilyakaznacheev/cleanenv"
 )
 
 type Config struct {
-	IsDebug *bool `yaml:"is_debug" env-required:"true"`
 	Listen  struct {
 		Type   string `yaml:"type" env-default:"port"`
 		BindIP string `yaml:"bind_ip" env-default:"0.0.0.0"`
@@ -18,14 +15,10 @@ type Config struct {
 	} `yaml:"listen"`
 	Storage        StorageConfig `yaml:"storage"`
 	JwtKey         string        `yaml:"jwt_key" env-required:"true"`
-	SocketJwtKey   string        `yaml:"socket_jwt_key" env-required:"true"`
 	AppVersion     string        `yaml:"app_version" env-required:"true"`
-	MaxFileSize    int64         `yaml:"max_file_size" env-required:"true"`
-	PublicFilePath string        `yaml:"config_path"`
 }
 
 type StorageConfig struct {
-	PgPoolMaxConn int    `yaml:"pg_pool_max_conn" env-required:"true"`
 	Host          string `json:"host"`
 	Port          string `json:"port"`
 	Database      string `json:"database"`
@@ -39,12 +32,7 @@ var once sync.Once
 func GetConfig() *Config {
 
  once.Do(func() {
-	dir, err := os.Getwd()
-		if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println(dir)
-
+		
 		pathConfig := "config.yml"
 
 		instance = &Config{}

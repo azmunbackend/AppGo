@@ -14,18 +14,9 @@ import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/jackc/pgx/v4/pgxpool"
-	"github.com/swaggo/swag/example/basic/docs"
 )
 
 func main() {
-	//swagger information
-	docs.SwaggerInfo.Title = "TEST API DOCUMENTATION"
-	docs.SwaggerInfo.Description = "TEST API DOCUMENTATION"
-	docs.SwaggerInfo.Version = "1.0"
-	docs.SwaggerInfo.Host = "localhost:3000"
-	docs.SwaggerInfo.BasePath = "/api/v1"
-	docs.SwaggerInfo.Schemes = []string{"http", "https"}
-	
 	gin.SetMode(gin.ReleaseMode)
 
 	cfg := config.GetConfig()

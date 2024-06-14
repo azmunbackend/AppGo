@@ -22,7 +22,6 @@ type Client interface {
 }
 
 func NewClient(ctx context.Context, sc config.StorageConfig) (pool *pgxpool.Pool, err error) {
-	fmt.Println(sc)
 	dsn := fmt.Sprintf("postgresql://%s:%s@%s:%s/%s", sc.Username, sc.Password, sc.Host, sc.Port, sc.Database)
 		cfg, err := pgxpool.ParseConfig(dsn)
 		if err != nil {

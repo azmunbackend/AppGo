@@ -34,14 +34,12 @@ func (h handler) Register(router *gin.RouterGroup) {
 	router.POST(URL, h.Login)
 }
 
-// CreateAccount creates a new account
-//
-// @Summary      Create account
-// @Description  Create a new account
-// @Tags         accounts
+// @Summary      Create login
+// @Description  Create a new login
+// @Tags         Login
 // @Accept       json
 // @Produce      json    
-// @Param 		request body Login true "Create news"
+// @Param 		request body Login true "Login"
 // @Success      200
 // @Router       /api/v1/admin/login [post]
 func (h handler) Login(c *gin.Context) {

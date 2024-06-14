@@ -28,9 +28,9 @@ paths:
     post:
       consumes:
       - application/json
-      description: Create a new account
+      description: Create a new login
       parameters:
-      - description: Create news
+      - description: Login
         in: body
         name: request
         required: true
@@ -41,9 +41,9 @@ paths:
       responses:
         "200":
           description: OK
-      summary: Create account
+      summary: Create login
       tags:
-      - accounts
+      - Login
 securityDefinitions:
   BasicAuth:
     type: basic
